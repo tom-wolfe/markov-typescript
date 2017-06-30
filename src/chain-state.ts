@@ -1,7 +1,7 @@
 import * as Collections from "typescript-collections";
 
 export class ChainState<T> {
-    private readonly items: T[];
+    public readonly items: T[];
 
     static fromQueue<T>(items: Collections.Queue<T>): ChainState<T> {
         const arr: T[] = new Array();
