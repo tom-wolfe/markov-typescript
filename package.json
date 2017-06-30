@@ -7,7 +7,7 @@
     "clean": "rimraf ./dist",
     "lint": "tslint --type-check -p ./tsconfig.json -c ./tslint.json ./src/**/*.ts",
     "tsc": "tsc",
-    "test": "test",
+    "test": "karma start",
     "build": "npm run clean && npm run lint && npm run tsc"
   },
   "repository": {
@@ -28,6 +28,11 @@
   },
   "homepage": "https://github.com/trwolfe13/markov-typescript#readme",
   "devDependencies": {
+    "jasmine-core": "^2.6.4",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-typescript": "^3.0.4",
     "rimraf": "^2.6.1",
     "tslint": "^5.4.3",
     "typescript": "^2.4.1"
