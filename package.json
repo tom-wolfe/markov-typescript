@@ -1,0 +1,38 @@
+{
+  "name": "markov-typescript",
+  "version": "1.0.1",
+  "description": "A Markov Chain library written in Typescript.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "lint": "tslint --type-check -p ./tsconfig.json -c ./tslint.json ./src/**/*.ts",
+    "tsc": "tsc",
+    "test": "test",
+    "build": "npm run clean && npm run lint && npm run tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trwolfe13/markov-typescript.git"
+  },
+  "keywords": [
+    "markov",
+    "chain",
+    "generator",
+    "random",
+    "typescript"
+  ],
+  "author": "Tom Wolfe <trwolfe13@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trwolfe13/markov-typescript/issues"
+  },
+  "homepage": "https://github.com/trwolfe13/markov-typescript#readme",
+  "devDependencies": {
+    "rimraf": "^2.6.1",
+    "tslint": "^5.4.3",
+    "typescript": "^2.4.1"
+  },
+  "dependencies": {
+    "typescript-collections": "^1.2.3"
+  }
+}
