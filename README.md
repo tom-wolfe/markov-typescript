@@ -6,14 +6,6 @@ A Markov Chain library written in TypeScript, inspired by [otac0n/markov](https:
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
 ### Installing
 
 ```
@@ -22,7 +14,7 @@ npm i --save markov-typescript
 
 ### Usage
 
-Imports.
+Import types from package:
 
 ```
 import * as Markov from "markov-typescript";
@@ -42,7 +34,7 @@ for (let x = 0; x < 10; x++) {
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/trwolfe13/markov-typescript/tags). 
 
 ## Authors
 
@@ -57,3 +49,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 * Thanks to [otac0n](https://www.github.com/otac0n) for the original .NET codebase.
+* Thanks to [chriscore](https://www.github.com/chriscore) for the second reference and unit tests)
