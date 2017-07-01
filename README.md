@@ -22,13 +22,13 @@ npm i --save markov-typescript
 
 Import types from package:
 
-```
+```typescript
 import * as Markov from "markov-typescript";
 ```
 
 Code sample
 
-```
+```typescript
 const chain = new Markov.MarkovChain<string>(2);
 chain.add("the quick brown fox jumped over the lazy dog".split(" "));
 chain.add("the quick brown dog jumped over the lazy cat".split(" "));
