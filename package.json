@@ -1,6 +1,6 @@
 {
   "name": "markov-typescript",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A Markov Chain library written in Typescript.",
   "main": "./dist/index.js",
   "scripts": {
