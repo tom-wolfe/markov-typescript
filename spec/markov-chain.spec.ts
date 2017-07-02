@@ -1,6 +1,4 @@
-import * as Collections from "typescript-collections";
 import { MarkovChain } from "../src/markov-chain";
-import * as Helpers from "./helpers";
 
 describe("MarkovChain<T>", () => {
     describe("constructor", () => {

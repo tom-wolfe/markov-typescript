@@ -1,6 +1,7 @@
 import * as Collections from "typescript-collections";
 
 import { ChainState } from "./chain-state";
+import { FixedQueue } from "./fixed-queue";
 import { MarkovChainItems } from "./markov-chain-items";
 import { MarkovTerminalItems } from "./markov-terminal-items";
 import * as utils from "./utils";
@@ -11,26 +12,39 @@ export class MarkovChain<T> {
     public readonly items: MarkovChainItems<T> = new MarkovChainItems<T>()
     public readonly terminals: MarkovTerminalItems<T> = new MarkovTerminalItems<T>();
 
-    constructor(order: number = 2) {
+    protected readonly toStrFunction: (key: T) => string;
+
+    /**
+     * Initializes a new instance of MarkovChain<T>.
+     * @param order The number of state transitions to track within the model.
+     * @param toStrFunction Optional function used to convert keys to strings.
+     */
+    constructor(order: number = 2, toStrFunction?: (key: T) => string) {
         if (order < 0) { throw new RangeError("Order must not be less than 0."); }
         this.order = order;
+        this.toStrFunction = toStrFunction;
     }
 
+    /**
+     * Learns multiple sequences and their transitions.
+     * @param items The list of sequences to learn.
+     */
     learnAll(items: T[][]): void {
         items.forEach(item => this.learn(item));
     }
 
+    /**
+     * Learns a single sequence of elements.
+     * @param items Lear
+     */
     learn(items: T[]): void {
         if (!items || items.length === 0) { return; }
 
-        const previous: Collections.Queue<T> = new Collections.Queue<T>();
+        const previous: FixedQueue<T> = new FixedQueue<T>(this.order);
         items.forEach(item => {
             const key = ChainState.fromQueue<T>(previous);
             this.learnWithPrevious(key, item);
             previous.enqueue(item);
-            if (previous.size() > this.order) {
-                previous.dequeue();
-            }
         });
 
         const terminalKey = ChainState.fromQueue<T>(previous);
@@ -38,37 +52,31 @@ export class MarkovChain<T> {
     }
 
     private learnWithPrevious(previous: ChainState<T>, next: T): void {
-        let weights: WeightedDictionary<T>;
-        if (!this.items.containsKey(previous)) {
-            weights = new WeightedDictionary<T>();
-            this.items.setValue(previous, weights);
-        } else {
-            weights = this.items.getValue(previous);
-        }
-
+        const weights = this.items.getOrCreateValue(previous, () => new WeightedDictionary<T>(this.toStrFunction));
         weights.incrementValue(next, 1);
     }
 
+    /**
+     * Walks the model from the beginning.
+     */
     walk(): T[] {
         return this.walkWithPrevious([]);
     }
 
+    /**
+     * Walks the model, starting with the preceeding state.
+     * @param previous The previous state with which to begin.
+     */
     walkWithPrevious(previous: T[]): T[] {
         const retVal: T[] = new Array();
-        const state: Collections.Queue<T> = new Collections.Queue<T>();
+        const state: FixedQueue<T> = new FixedQueue<T>(this.order);
         previous.forEach(x => state.add(x));
 
         while (true) {
-            while (state.size() > this.order) {
-                state.dequeue();
-            }
-
             const key = ChainState.fromQueue<T>(state);
-
             if (!this.items.containsKey(key)) { break; }
 
             const weights: WeightedDictionary<T> = this.items.getValue(key);
-
             let terminalWeight = 0;
             if (this.terminals.containsKey(key)) {
                 terminalWeight = this.terminals.getValue(key);

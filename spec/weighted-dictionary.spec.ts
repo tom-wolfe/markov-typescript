@@ -1,7 +1,4 @@
-import * as Collections from "typescript-collections";
-import { MarkovChain } from "../src/markov-chain";
 import { WeightedDictionary } from "../src/weighted-dictionary";
-import * as Helpers from "./helpers";
 
 describe("WeightedDictionary<T>", () => {
     describe("constructor", () => {
@@ -24,7 +21,7 @@ describe("WeightedDictionary<T>", () => {
             dict.setValue("test3", 3);
             expect(dict.totalWeight).toBe(9);
         });
-        it("Resetting existing value has correct weight.", function () {
+        it("Resetting existing value has correct weight", function () {
             const dict = new WeightedDictionary<string>();
             dict.setValue("test1", 4);
             dict.setValue("test2", 2);
@@ -35,7 +32,7 @@ describe("WeightedDictionary<T>", () => {
             expect(dict.totalWeight).toBe(6);
         });
     });
-     describe("incrementValue", () => {
+    describe("incrementValue", () => {
         it("element weight increments", function () {
             const dict = new WeightedDictionary<string>();
             dict.setValue("test", 4);
@@ -59,6 +56,38 @@ describe("WeightedDictionary<T>", () => {
             dict.setValue("test3", 3);
             dict.remove("test2");
             expect(dict.totalWeight).toBe(7);
+        });
+    });
+    describe("toStrFunction", () => {
+        it("setValue respects toStrFunction", function () {
+            const dict = new WeightedDictionary<string>(k => k.toLowerCase());
+            dict.setValue("TEST", 1);
+            dict.setValue("test", 2);
+            dict.setValue("teST", 3);
+            expect(dict.size()).toBe(1);
+        });
+        it("getValue respects toStrFunction", function () {
+            const dict = new WeightedDictionary<string>(k => k.toLowerCase());
+            dict.setValue("TEST", 1);
+            dict.setValue("test", 2);
+            dict.setValue("teST", 3);
+            expect(dict.getValue("TEst")).toBe(3);
+        });
+        it("remove respects toStrFunction", function () {
+            const dict = new WeightedDictionary<string>(k => k.toLowerCase());
+            dict.setValue("TEST", 1);
+            dict.setValue("test", 2);
+            dict.setValue("teST", 3);
+            dict.remove("TEst");
+            expect(dict.size()).toBe(0);
+        });
+        it("incrementValue respects toStrFunction", function () {
+            const dict = new WeightedDictionary<string>(k => k.toLowerCase());
+            dict.setValue("TEST", 1);
+            dict.incrementValue("test", 2);
+            dict.incrementValue("teST", 3);
+            dict.incrementValue("TEst", 7);
+            expect(dict.getValue("tESt")).toBe(13);
         });
     });
 });
