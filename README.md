@@ -1,3 +1,6 @@
+[![NPM version](https://badge.fury.io/js/markov-typescript.svg)](http://badge.fury.io/js/markov-typescript)
+
+
 # Markov Typescript
 
 A Markov Chain library written in TypeScript, inspired by [otac0n/markov](https://www.github.com/otac0n/markov) and [chriscore/MarkovSharp](https://www.github.com/chriscore/MarkovSharp).
