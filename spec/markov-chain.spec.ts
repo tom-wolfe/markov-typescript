@@ -1,4 +1,5 @@
 import { MarkovChain } from "../src/markov-chain";
+import { ExposedMarkovChain } from "./helpers/exposed-markov-chain";
 
 describe("MarkovChain<T>", () => {
     describe("constructor", () => {
@@ -13,11 +14,11 @@ describe("MarkovChain<T>", () => {
             }).toThrow();
         });
         it("Data should be empty upon construction", function () {
-            const chain = new MarkovChain<string>(2);
-            expect(chain.items).toBeTruthy();
-            expect(chain.items.size()).toBe(0);
-            expect(chain.terminals).toBeTruthy();
-            expect(chain.terminals.size()).toBe(0);
+            const chain = new ExposedMarkovChain<string>(2);
+            expect(chain.getItems()).toBeTruthy();
+            expect(chain.getItems().size()).toBe(0);
+            expect(chain.getTerminals()).toBeTruthy();
+            expect(chain.getTerminals().size()).toBe(0);
         });
     });
 
@@ -31,18 +32,18 @@ describe("MarkovChain<T>", () => {
             expect(() => { chain.learn([]); }).not.toThrow();
         });
         it("Does not add data on null", function () {
-            const chain = new MarkovChain<string>(2);
+            const chain = new ExposedMarkovChain<string>(2);
             chain.learn(null);
-            expect(chain.items.size()).toBe(0);
-            expect(chain.terminals.size()).toBe(0);
+            expect(chain.getItems().size()).toBe(0);
+            expect(chain.getTerminals().size()).toBe(0);
         });
         it("One entry for each distinct word", function () {
             const input = "the quick brown fox".split(" ");
-            const chain = new MarkovChain<string>(2);
+            const chain = new ExposedMarkovChain<string>(2);
             chain.learn(input);
             // Check that it tracks correctly.
-            expect(chain.items.size()).toBe(4);
-            expect(chain.terminals.size()).toBe(1);
+            expect(chain.getItems().size()).toBe(4);
+            expect(chain.getTerminals().size()).toBe(1);
         });
 
         it("face", function () {

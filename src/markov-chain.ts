@@ -9,8 +9,8 @@ import { WeightedDictionary } from "./weighted-dictionary";
 
 export class MarkovChain<T> {
     public readonly order: number;
-    public readonly items: MarkovChainItems<T> = new MarkovChainItems<T>()
-    public readonly terminals: MarkovTerminalItems<T> = new MarkovTerminalItems<T>();
+    protected readonly items: MarkovChainItems<T> = new MarkovChainItems<T>()
+    protected readonly terminals: MarkovTerminalItems<T> = new MarkovTerminalItems<T>();
 
     protected readonly toStrFunction: (key: T) => string;
 
