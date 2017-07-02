@@ -23,10 +23,10 @@ export class MarkovChain<T> {
     learn(items: T[]): void {
         if (!items || items.length === 0) { return; }
 
-        const previous: Collections.Queue<T> = new Collections.Queue<T>()
+        const previous: Collections.Queue<T> = new Collections.Queue<T>();
         items.forEach(item => {
             const key = ChainState.fromQueue<T>(previous);
-            this.learnWithPrecedingChain(key, item);
+            this.learnWithPrevious(key, item);
             previous.enqueue(item);
             if (previous.size() > this.order) {
                 previous.dequeue();
@@ -37,13 +37,13 @@ export class MarkovChain<T> {
         this.terminals.incrementValue(terminalKey, 1);
     }
 
-    private learnWithPrecedingChain(state: ChainState<T>, next: T): void {
+    private learnWithPrevious(previous: ChainState<T>, next: T): void {
         let weights: WeightedDictionary<T>;
-        if (!this.items.containsKey(state)) {
+        if (!this.items.containsKey(previous)) {
             weights = new WeightedDictionary<T>();
-            this.items.setValue(state, weights);
+            this.items.setValue(previous, weights);
         } else {
-            weights = this.items.getValue(state);
+            weights = this.items.getValue(previous);
         }
 
         weights.incrementValue(next, 1);

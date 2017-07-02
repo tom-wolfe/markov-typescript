@@ -9,7 +9,11 @@ describe("MarkovChain<T>", () => {
             const chain = new MarkovChain<string>(order);
             expect(chain.order).toBe(order);
         });
-
+        it("Throws if order is less than 0", function () {
+            expect(() => {
+                const chain = new MarkovChain<string>(-1);
+            }).toThrow();
+        });
         it("Data should be empty upon construction", function () {
             const chain = new MarkovChain<string>(2);
             expect(chain.items).toBeTruthy();
