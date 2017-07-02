@@ -3,17 +3,13 @@ import * as Collections from "typescript-collections";
 export class ChainState<T> {
     public readonly items: T[];
 
-    static fromQueue<T>(items: Collections.Queue<T>): ChainState<T> {
-        const arr: T[] = new Array();
-        items.forEach(i => { arr.push(i); return true; });
-        return new ChainState<T>(arr);
-    }
-
-    constructor(items: T[]) {
+    constructor(items: Collections.Queue<T>) {
         if (!items) {
             throw new ReferenceError("Items cannot be null.");
         }
-        this.items = items.slice(0);
+        const arr: T[] = new Array();
+        items.forEach(i => { arr.push(i); return true; });
+        this.items = arr;
     }
 
     equals(other: ChainState<T>): boolean {

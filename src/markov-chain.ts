@@ -42,12 +42,12 @@ export class MarkovChain<T> {
 
         const previous: FixedQueue<T> = new FixedQueue<T>(this.order);
         items.forEach(item => {
-            const key = ChainState.fromQueue<T>(previous);
+            const key = new ChainState(previous);
             this.learnWithPrevious(key, item);
             previous.enqueue(item);
         });
 
-        const terminalKey = ChainState.fromQueue<T>(previous);
+        const terminalKey = new ChainState(previous);
         this.terminals.incrementValue(terminalKey, 1);
     }
 
@@ -73,7 +73,7 @@ export class MarkovChain<T> {
         previous.forEach(x => state.add(x));
 
         while (true) {
-            const key = ChainState.fromQueue<T>(state);
+            const key = new ChainState(state);
             if (!this.items.containsKey(key)) { break; }
 
             const weights: WeightedDictionary<T> = this.items.getValue(key);

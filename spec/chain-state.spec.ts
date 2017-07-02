@@ -3,68 +3,47 @@ import * as Collections from "typescript-collections";
 import * as Helpers from "./helpers";
 
 describe("ChainState<T>", () => {
-    describe("fromQueue", () => {
-        function makeNameQueue(): Collections.Queue<string> {
-            const names: Collections.Queue<string> = new Collections.Queue<string>();
-            names.enqueue("jim");
-            names.enqueue("george");
-            names.enqueue("bob");
-            names.enqueue("fred");
-            return names;
-        }
+    function makeNameQueue(): Collections.Queue<string> {
+        const names: Collections.Queue<string> = new Collections.Queue<string>();
+        names.enqueue("jim");
+        names.enqueue("george");
+        names.enqueue("bob");
+        names.enqueue("fred");
+        return names;
+    }
 
+    function makePersonQueue(): Collections.Queue<Helpers.Person> {
+        const people: Collections.Queue<Helpers.Person> = new Collections.Queue<Helpers.Person>();
+        people.enqueue(new Helpers.Person("jim", 20));
+        people.enqueue(new Helpers.Person("george", 18));
+        people.enqueue(new Helpers.Person("bob", 25));
+        people.enqueue(new Helpers.Person("fred", 46));
+        return people;
+    }
+
+    describe("constructor", () => {
         it("Should be same length as input", function () {
             const names = makeNameQueue();
-            const chain = ChainState.fromQueue(names);
+            const chain = new ChainState(names);
             expect(chain.items.length).toEqual(names.size());
         });
 
         it("Should have same elements as input", function () {
             const names = makeNameQueue();
-            const chain = ChainState.fromQueue(names);
+            const chain = new ChainState(names);
             for (let x = 0; x < chain.items.length; x++) {
                 expect(chain.items[x]).toBe(names.dequeue());
             }
         });
     });
 
-    describe("constructor", () => {
-        function makeNameArray(): string[] {
-            return ["jim", "george", "bob", "fred"];
-        }
-
-        it("Should be same length as input", function () {
-            const names = makeNameArray();
-            const chain = new ChainState<string>(names);
-            expect(chain.items.length).toEqual(names.length);
-        });
-
-        it("Should have same elements as input", function () {
-            const names = makeNameArray();
-            const chain = new ChainState<string>(names);
-            for (let x = 0; x < names.length; x++) {
-                expect(chain.items[x]).toBe(names[x]);
-            }
-        });
-    });
-
     describe("equals", () => {
-        function makeNameArray(): string[] {
-            return ["jim", "george", "bob", "fred"];
-        }
-
-        function makePersonArray(): Helpers.Person[] {
-            return [
-                new Helpers.Person("jim", 20),
-                new Helpers.Person("george", 18),
-                new Helpers.Person("bob", 25),
-                new Helpers.Person("fred", 46),
-            ];
-        }
-
         it("Should be same with equal strings", function () {
-            const names1 = makeNameArray();
-            const names2 = names1.slice(0);
+            const names1 = makeNameQueue();
+            const names2 = new Collections.Queue<string>();
+            names1.forEach(name => {
+                names2.enqueue(name);
+            });
 
             const chain1 = new ChainState<string>(names1);
             const chain2 = new ChainState<string>(names2);
@@ -73,8 +52,8 @@ describe("ChainState<T>", () => {
         });
 
         it("Should be same based on values not references", function () {
-            const people1 = makePersonArray();
-            const people2 = makePersonArray();
+            const people1 = makePersonQueue();
+            const people2 = makePersonQueue();
 
             const chain1 = new ChainState<Helpers.Person>(people1);
             const chain2 = new ChainState<Helpers.Person>(people2);
@@ -83,9 +62,11 @@ describe("ChainState<T>", () => {
         });
 
         it("Changing object field renders unequal", function () {
-            const people1 = makePersonArray();
-            const people2 = makePersonArray();
-            people2[2].age = 30;
+            const people1 = makePersonQueue();
+            const people2 = makePersonQueue();
+            people2.forEach(p => {
+                p.age = 30;
+            });
 
             const chain1 = new ChainState<Helpers.Person>(people1);
             const chain2 = new ChainState<Helpers.Person>(people2);
@@ -94,9 +75,9 @@ describe("ChainState<T>", () => {
         });
 
         it("Changing array length renders unequal", function () {
-            const people1 = makePersonArray();
-            const people2 = makePersonArray();
-            people2.push(new Helpers.Person("tom", 27));
+            const people1 = makePersonQueue();
+            const people2 = makePersonQueue();
+            people2.enqueue(new Helpers.Person("tom", 27));
 
             const chain1 = new ChainState<Helpers.Person>(people1);
             const chain2 = new ChainState<Helpers.Person>(people2);
