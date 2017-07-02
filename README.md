@@ -2,12 +2,6 @@
 
 A Markov Chain library written in TypeScript, inspired by [otac0n/markov](https://www.github.com/otac0n/markov) and [chriscore/MarkovSharp](https://www.github.com/chriscore/MarkovSharp).
 
-## A Quick Note/Disclaimer
-
-I am not convinced this library quite works as intended, as the results don't seem to be quite what I expect sometimes. I can't tell whether that's just the nature of randomness or there's something more sinister going on. There's a lot I don't know about TypeScript/JavaScript, so there are probably some things I have missed.
-
-However, I've recently figured out how to use Jasmine and Karma with TypeScript, so I'll be implementing a full test suite shortly to either confirm or deny my suspicions. I suspect this will result in a v2.0, once it's finished.
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
