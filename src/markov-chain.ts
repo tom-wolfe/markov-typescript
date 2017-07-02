@@ -7,26 +7,26 @@ import * as utils from "./utils";
 import { WeightedDictionary } from "./weighted-dictionary";
 
 export class MarkovChain<T> {
-    private readonly order: number;
-    private readonly items: MarkovChainItems<T> = new MarkovChainItems<T>()
-    private readonly terminals: MarkovTerminalItems<T> = new MarkovTerminalItems<T>();
+    public readonly order: number;
+    public readonly items: MarkovChainItems<T> = new MarkovChainItems<T>()
+    public readonly terminals: MarkovTerminalItems<T> = new MarkovTerminalItems<T>();
 
-    constructor(order: number) {
-        if (order < 0) {
-            throw new RangeError("Order must not be less than 0.");
-        }
+    constructor(order: number = 2) {
+        if (order < 0) { throw new RangeError("Order must not be less than 0."); }
         this.order = order;
     }
 
-    add(items: T[]): void {
-        this.addWithWeight(items, 1);
+    learnAll(items: T[][]): void {
+        items.forEach(item => this.learn(item));
     }
 
-    addWithWeight(items: T[], weight): void {
+    learn(items: T[]): void {
+        if (!items || items.length === 0) { return; }
+
         const previous: Collections.Queue<T> = new Collections.Queue<T>()
         items.forEach(item => {
             const key = ChainState.fromQueue<T>(previous);
-            this.addWithPrecedingChainAndWeight(key, item, weight);
+            this.learnWithPrecedingChain(key, item);
             previous.enqueue(item);
             if (previous.size() > this.order) {
                 previous.dequeue();
@@ -34,27 +34,19 @@ export class MarkovChain<T> {
         });
 
         const terminalKey = ChainState.fromQueue<T>(previous);
-        let terminalWeight = weight;
-        if (this.terminals.containsKey(terminalKey)) {
-            terminalWeight += this.terminals.getValue(terminalKey);
-        };
-        this.terminals.setValue(terminalKey, terminalWeight);
+        this.terminals.incrementValue(terminalKey, 1);
     }
 
-    addWithPrecedingChainAndWeight(state: ChainState<T>, next: T, weight: number): void {
+    private learnWithPrecedingChain(state: ChainState<T>, next: T): void {
         let weights: WeightedDictionary<T>;
         if (!this.items.containsKey(state)) {
-            weights = new Collections.Dictionary<T, number>();
+            weights = new WeightedDictionary<T>();
             this.items.setValue(state, weights);
         } else {
             weights = this.items.getValue(state);
         }
 
-        let newWeight = weight;
-        if (weights.containsKey(next)) {
-            newWeight += weights.getValue(next);
-        }
-        weights.setValue(next, newWeight);
+        weights.incrementValue(next, 1);
     }
 
     walk(): T[] {
@@ -82,12 +74,12 @@ export class MarkovChain<T> {
                 terminalWeight = this.terminals.getValue(key);
             }
 
-            let total = 0;
-            weights.forEach((k, v) => {total += v; return true; });
+            const value = utils.randomNumberBetween(1, weights.totalWeight + terminalWeight);
 
-            const value = utils.randomNumber(total + terminalWeight) + 1;
-            if (value > total) { break; }
+            // Represents a terminal.
+            if (value > weights.totalWeight) { break; }
 
+            // Get the value that corresponds to.
             let currentWeight = 0;
             weights.forEach((k, v) => {
                 currentWeight += v;

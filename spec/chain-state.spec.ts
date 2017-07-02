@@ -81,5 +81,27 @@ describe("ChainState<T>", () => {
 
             expect(chain1.equals(chain2)).toBe(true);
         });
+
+        it("Changing object field renders unequal", function () {
+            const people1 = makePersonArray();
+            const people2 = makePersonArray();
+            people2[2].age = 30;
+
+            const chain1 = new ChainState<Helpers.Person>(people1);
+            const chain2 = new ChainState<Helpers.Person>(people2);
+
+            expect(chain1.equals(chain2)).toBe(false);
+        });
+
+        it("Changing array length renders unequal", function () {
+            const people1 = makePersonArray();
+            const people2 = makePersonArray();
+            people2.push(new Helpers.Person("tom", 27));
+
+            const chain1 = new ChainState<Helpers.Person>(people1);
+            const chain2 = new ChainState<Helpers.Person>(people2);
+
+            expect(chain1.equals(chain2)).toBe(false);
+        });
     });
 });

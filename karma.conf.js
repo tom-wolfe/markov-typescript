@@ -9,6 +9,9 @@ module.exports = function (config) {
         preprocessors: {
             "**/*.ts": ["karma-typescript"],
         },
+        compilerOptions: {
+            sourceMap: true
+        },
         reporters: ["progress", "karma-typescript"],
         browsers: ["Chrome"],
         plugins: [
