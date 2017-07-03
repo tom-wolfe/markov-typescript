@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rimraf ./dist",
-    "lint": "tslint --type-check -p ./tsconfig.json",
+    "lint": "tslint --type-check -p ./tsconfig.spec.json",
     "tsc": "tsc --project ./tsconfig.build.json",
     "test": "karma start",
     "build": "npm run clean && npm run lint && npm run tsc",
@@ -36,7 +36,8 @@
     "karma-typescript": "^3.0.4",
     "rimraf": "^2.6.1",
     "tslint": "^5.4.3",
-    "typescript": "^2.4.1"
+    "typescript": "^2.4.1",
+    "typings": "^2.1.1"
   },
   "dependencies": {
     "typescript-collections": "^1.2.3"
