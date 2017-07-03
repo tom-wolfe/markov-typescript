@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rimraf ./dist",
-    "lint": "tslint --type-check -p ./tsconfig.spec.json",
+    "lint": "tslint --type-check -p ./tsconfig.json",
     "tsc": "tsc --project ./tsconfig.build.json",
     "test": "karma start",
     "build": "npm run clean && npm run lint && npm run tsc",
