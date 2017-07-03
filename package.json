@@ -7,7 +7,8 @@
     "clean": "rimraf ./dist",
     "lint": "tslint --type-check -p ./tsconfig.json",
     "tsc": "tsc --project ./tsconfig.build.json",
-    "test": "karma start",
+    "test": "karma start --single-run", 
+    "test_watch": "karma start",
     "build": "npm run clean && npm run lint && npm run tsc"
   },
   "repository": {
