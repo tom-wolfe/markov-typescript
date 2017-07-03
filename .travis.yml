@@ -4,8 +4,8 @@ node_js:
   - "7"
 
 install:
-  - npm install
-  - "./node_modules/.bin/typings" install
+  - "npm install"
+  - "./node_modules/.bin/typings install"
 
 cache:
   directories:
