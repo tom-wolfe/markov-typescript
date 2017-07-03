@@ -1,4 +1,4 @@
-[![NPM version](https://badge.fury.io/js/markov-typescript.svg)](http://badge.fury.io/js/markov-typescript)
+[![NPM version](https://badge.fury.io/js/markov-typescript.svg)](http://badge.fury.io/js/markov-typescript) [![Build Status](https://travis-ci.org/trwolfe13/markov-typescript.svg?branch=master)](https://travis-ci.org/trwolfe13/markov-typescript)
 
 
 # Markov Typescript
