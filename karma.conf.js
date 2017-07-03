@@ -32,7 +32,7 @@ module.exports = function (config) {
             reports: {
                 lcovonly: {
                     directory: "coverage",
-                    filename: "coverage.lcov",
+                    filename: "lcov.info",
                     subdirectory: "lcov"
                 }
             }
