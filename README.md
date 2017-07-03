@@ -1,4 +1,4 @@
-[![NPM version](https://badge.fury.io/js/markov-typescript.svg)](http://badge.fury.io/js/markov-typescript) [![Build Status](https://travis-ci.org/trwolfe13/markov-typescript.svg?branch=master)](https://travis-ci.org/trwolfe13/markov-typescript)
+[![NPM version](https://badge.fury.io/js/markov-typescript.svg)](http://badge.fury.io/js/markov-typescript) [![Build Status](https://travis-ci.org/trwolfe13/markov-typescript.svg?branch=master)](https://travis-ci.org/trwolfe13/markov-typescript) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/78837c971b4a49f88c512feff12f4cd4)](https://www.codacy.com/app/trwolfe13/markov-typescript?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=trwolfe13/markov-typescript&amp;utm_campaign=Badge_Grade)
 
 
 # Markov Typescript

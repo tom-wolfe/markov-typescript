@@ -16,6 +16,7 @@ before_install:
 install:
   - "npm install"
   - "./node_modules/.bin/typings install"
+  - cat "./coverage/lcov/coverage.lcov" | "./node_modules/.bin/codacy-coverage"
 
 cache:
   directories:

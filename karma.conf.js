@@ -20,13 +20,25 @@ module.exports = function (config) {
             "karma-typescript"
         ],
         customLaunchers: {
-            Chrome_travis_ci: {
-                base: 'Chrome',
-                flags: ['--no-sandbox']
+            chromeTravisCi: {
+                base: "Chrome",
+                flags: ["--no-sandbox"]
+            }
+        },
+        karmaTypescriptConfig: {
+            compilerOptions: {
+                sourceMap: true
+            },
+            reports: {
+                lcovonly: {
+                    directory: "coverage",
+                    filename: "coverage.lcov",
+                    subdirectory: "lcov"
+                }
             }
         }
     });
     if (process.env.TRAVIS) {
-        config.browsers = ['Chrome_travis_ci'];
+        config.browsers = ["chromeTravisCi"];
     }
 };
