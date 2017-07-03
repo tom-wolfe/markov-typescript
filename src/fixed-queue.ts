@@ -15,9 +15,7 @@ export class FixedQueue<T> extends Collections.Queue<T> {
     }
 
     add(elem: T): boolean {
-        const val = super.add(elem);
-        this.enforceSize();
-        return val;
+        return this.enqueue(elem);
     }
 
     protected enforceSize() {

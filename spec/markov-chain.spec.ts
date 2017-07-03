@@ -46,14 +46,27 @@ describe("MarkovChain<T>", () => {
             expect(chain.getTerminals().size()).toBe(1);
         });
 
-        it("face", function () {
+        it("learn", function () {
             const chain = new MarkovChain<string>(2);
             chain.learn("the quick brown fox jumped over the lazy dog".split(" "));
             chain.learn("the quick brown dog jumped over the lazy cat".split(" "));
             chain.learn("the quick brown cat jumped over the lazy fox".split(" "));
-            for (let x = 0; x < 10; x++) {
-                console.log(chain.walk().join(" "));
-            }
+            expect(() => {
+                for (let x = 0; x < 10; x++) {
+                    console.log(chain.walk().join(" "));
+                }
+            });
         })
+    });
+    describe("learnAll", () => {
+        it("face", function () {
+            const chain = new MarkovChain<string>(2);
+            const input = [
+                "the quick brown fox jumped over the lazy dog".split(" "),
+                "the quick brown dog jumped over the lazy cat".split(" "),
+                "the quick brown cat jumped over the lazy fox".split(" ")
+            ]
+            expect(() => chain.learnAll(input)).not.toThrow();
+        });
     });
 });

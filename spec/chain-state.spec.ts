@@ -23,11 +23,15 @@ describe("ChainState<T>", () => {
 
     describe("constructor", () => {
         it("Should be same length as input", function () {
+            expect(() => {
+                const chain = new ChainState(null);
+            }).toThrow();
+        });
+        it("Should be same length as input", function () {
             const names = makeNameQueue();
             const chain = new ChainState(names);
             expect(chain.items.length).toEqual(names.size());
         });
-
         it("Should have same elements as input", function () {
             const names = makeNameQueue();
             const chain = new ChainState(names);

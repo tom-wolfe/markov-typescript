@@ -18,4 +18,14 @@ describe("FixedQueue<T>", () => {
             }
         });
     });
+     describe("add", () => {
+        it("Never goes above maxSize", function () {
+            const maxSize = 5;
+            const queue = new FixedQueue<string>(maxSize);
+            for (let x = 0; x < 100; x++) {
+                queue.add("new item");
+                expect(queue.size()).toBeLessThanOrEqual(maxSize);
+            }
+        });
+    });
 });
