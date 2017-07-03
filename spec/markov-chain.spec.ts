@@ -55,7 +55,7 @@ describe("MarkovChain<T>", () => {
                 for (let x = 0; x < 10; x++) {
                     console.log(chain.walk().join(" "));
                 }
-            });
+            }).not.toThrow();
         })
     });
     describe("learnAll", () => {
