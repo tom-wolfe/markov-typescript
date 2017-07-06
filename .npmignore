@@ -1,5 +1,8 @@
+dist/spec/
 dist/test/
 node_modules/
+spec/
+coverage/
 src/
 .gitattributes
 .gitignore
