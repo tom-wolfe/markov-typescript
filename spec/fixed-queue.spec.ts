@@ -1,6 +1,6 @@
 import { FixedQueue } from "../src/fixed-queue";
 import { WeightedDictionary } from "../src/weighted-dictionary";
-
+import {describe, it, expect} from 'vitest'
 describe("FixedQueue<T>", () => {
     describe("constructor", () => {
         it("Queue accepts maxSize", function () {

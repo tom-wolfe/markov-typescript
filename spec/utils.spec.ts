@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest';
 import * as utils from "../src/utils";
-
 describe("Utils", () => {
     describe("randomNumberBetween", () => {
         it("Should always be between 0 and max", function () {
