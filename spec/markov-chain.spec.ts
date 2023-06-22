@@ -1,6 +1,6 @@
 import { MarkovChain } from "../src/markov-chain";
 import { ExposedMarkovChain } from "./helpers/exposed-markov-chain";
-
+import {describe, it, expect} from 'vitest'
 describe("MarkovChain<T>", () => {
     describe("constructor", () => {
         it("Order parameter should be passed in constructor", function () {

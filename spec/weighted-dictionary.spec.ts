@@ -1,4 +1,5 @@
 import { WeightedDictionary } from "../src/weighted-dictionary";
+import {describe, it, expect} from 'vitest'
 
 describe("WeightedDictionary<T>", () => {
     describe("constructor", () => {

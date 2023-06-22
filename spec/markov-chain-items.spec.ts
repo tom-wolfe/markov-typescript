@@ -1,5 +1,5 @@
 import * as Collections from "typescript-collections";
-
+import {describe, it, expect} from 'vitest'
 import { ChainState } from "../src/chain-state";
 import { MarkovChainItems } from "../src/markov-chain-items";
 

@@ -1,7 +1,7 @@
 import { ChainState } from "../src/";
 import * as Collections from "typescript-collections";
 import * as Helpers from "./helpers";
-
+import {describe, it, expect} from 'vitest'
 describe("ChainState<T>", () => {
     function makeNameQueue(): Collections.Queue<string> {
         const names: Collections.Queue<string> = new Collections.Queue<string>();
